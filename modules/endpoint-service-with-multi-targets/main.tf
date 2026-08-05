@@ -10,7 +10,7 @@ locals {
     "%s-nlb-access-logs-%s-%s",
     var.name_prefix,
     data.aws_caller_identity.current.account_id,
-    data.aws_region.current.id
+    data.aws_region.current.region
   )
 
   nlb_access_logs_bucket_name = coalesce(

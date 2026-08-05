@@ -10,7 +10,7 @@ locals {
     "%s-nlb-access-logs-%s-%s",
     var.name_prefix,
     data.aws_caller_identity.current.account_id,
-    data.aws_region.current.id
+    data.aws_region.current.region
   )
 
   nlb_access_logs_bucket_name = coalesce(var.existing_nlb_access_logs_bucket_name, local.default_nlb_access_logs_bucket_name)
@@ -213,27 +213,27 @@ resource "aws_lb_listener" "listener" {
 resource "aws_lb_target_group_attachment" "target_0" {
   for_each = var.pl_services
 
-  target_group_arn = aws_lb_target_group.tg[each.key].arn
-  target_id        = each.value.service_target_ips[0]
-  port             = each.value.listener_port
+  target_group_arn  = aws_lb_target_group.tg[each.key].arn
+  target_id         = each.value.service_target_ips[0]
+  port              = each.value.listener_port
   availability_zone = "all"
 }
 
 resource "aws_lb_target_group_attachment" "target_1" {
   for_each = var.pl_services
 
-  target_group_arn = aws_lb_target_group.tg[each.key].arn
-  target_id        = each.value.service_target_ips[1]
-  port             = each.value.listener_port
+  target_group_arn  = aws_lb_target_group.tg[each.key].arn
+  target_id         = each.value.service_target_ips[1]
+  port              = each.value.listener_port
   availability_zone = "all"
 }
 
 resource "aws_lb_target_group_attachment" "target_2" {
   for_each = var.pl_services
 
-  target_group_arn = aws_lb_target_group.tg[each.key].arn
-  target_id        = each.value.service_target_ips[2]
-  port             = each.value.listener_port
+  target_group_arn  = aws_lb_target_group.tg[each.key].arn
+  target_id         = each.value.service_target_ips[2]
+  port              = each.value.listener_port
   availability_zone = "all"
 }
 
@@ -251,9 +251,9 @@ resource "aws_vpc_endpoint_service" "privatelink_service" {
   supported_regions          = try(each.value.supported_regions, var.supported_regions, null)
 
   tags = merge(
-  var.tags,
-  {
-    Name        = each.value.name
-  }
-)
+    var.tags,
+    {
+      Name = each.value.name
+    }
+  )
 }
