@@ -58,7 +58,7 @@ variable "supported_regions" {
 variable "name_prefix" {
   description = "Prefix used for shared resources like the NLB access logs bucket"
   type        = string
-  default = "cc-private-link-services"
+  default     = "cc-private-link-services"
 }
 
 variable "nlb_access_logs_retention_days" {
