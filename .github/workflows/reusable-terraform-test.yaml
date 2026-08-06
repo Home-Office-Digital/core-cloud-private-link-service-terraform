@@ -188,7 +188,7 @@ jobs:
         merge-multiple: true
 
     - name: Build and publish PR comment
-      uses: actions/github-script@v7
+      uses: actions/github-script@v9
       env:
         MODULES_JSON: ${{ needs.discover-modules.outputs.modules }}
         PR_NUMBER: ${{ inputs.pull_request_number }}
